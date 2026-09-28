@@ -497,6 +497,16 @@
       .hd h1 {
         margin: 0;
       }
+      .cnt-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+      .cnt-bar small {
+        color: var(--muted);
+      }
       .st {
         display: flex;
         gap: 10px;
@@ -789,16 +799,260 @@
       .lt .r.fx {
         flex-wrap: wrap;
       }
+      .note {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        margin-bottom: 12px;
+        overflow: hidden;
+      }
+      .note-hd {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+      .note-hd b {
+        flex: 1;
+        font-weight: 600;
+      }
+      .note-hd button {
+        background: none;
+        border: 0;
+        color: var(--muted);
+        cursor: pointer;
+        font-size: 0.95rem;
+        padding: 2px 6px;
+        line-height: 1;
+      }
+      .note-hd button:hover {
+        color: var(--ink);
+      }
+      .note textarea {
+        display: block;
+        width: 100%;
+        border: 0;
+        background: transparent;
+        color: var(--ink);
+        padding: 10px;
+        resize: vertical;
+        font: inherit;
+        min-height: 110px;
+      }
+      .note.small textarea {
+        min-height: 44px;
+        height: 44px;
+      }
+      .note-card {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px 12px;
+        margin-bottom: 10px;
+      }
+      .note-card span {
+        flex: 1;
+        color: var(--muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .note-card button {
+        background: none;
+        border: 0;
+        color: var(--muted);
+        cursor: pointer;
+        font-size: 0.95rem;
+        padding: 2px 6px;
+      }
+      .note-card button:hover {
+        color: var(--ink);
+      }
+      .note-hd input.nm {
+        background: transparent;
+        border: 0;
+        border-bottom: 1px dashed var(--line);
+        color: inherit;
+        font: inherit;
+        font-weight: 600;
+        flex: 1;
+        padding: 2px 0;
+      }
+      .note-card b.nm {
+        font-weight: 600;
+        color: var(--ink);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 140px;
+      }
+      .cal-tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .cal-tabs button.view {
+        background: var(--panel);
+        color: var(--muted);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+      .cal-tabs button.view.on {
+        background: var(--accent);
+        color: #12241c;
+        border-color: var(--accent);
+      }
+      .cal-nav {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        margin-left: auto;
+      }
+      .cal-nav b {
+        min-width: 160px;
+        text-align: center;
+        text-transform: capitalize;
+      }
+      table.cal {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+      }
+      table.cal th {
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.75rem;
+        padding: 4px;
+        text-align: center;
+      }
+      table.cal td {
+        border: 1px solid var(--line);
+        vertical-align: top;
+        padding: 4px;
+        height: 76px;
+        cursor: pointer;
+        font-size: 0.75rem;
+      }
+      table.cal.week td {
+        height: 150px;
+      }
+      table.cal td.other {
+        opacity: 0.35;
+      }
+      table.cal td.today {
+        outline: 2px solid var(--accent);
+        outline-offset: -2px;
+      }
+      table.cal td b {
+        display: block;
+        font-size: 0.8rem;
+        margin-bottom: 2px;
+        font-weight: 700;
+      }
+      table.cal td .ev {
+        display: block;
+        background: var(--accent);
+        color: #12241c;
+        border-radius: 4px;
+        font-size: 0.68rem;
+        padding: 1px 4px;
+        margin-bottom: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .cal-year {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 14px;
+      }
+      .cal-year table.cal td {
+        height: auto;
+        padding: 3px;
+        cursor: pointer;
+      }
+      .cal-year table.cal td .ev {
+        padding: 0;
+        background: none;
+      }
+      .cal-year table.cal td b {
+        margin: 0;
+        font-weight: 600;
+      }
+      .cal-year h3 {
+        margin: 0 0 6px;
+        font-size: 0.9rem;
+        text-align: center;
+        cursor: pointer;
+        color: var(--accent);
+      }
+      .lt input[type="time"] {
+        background: var(--bg);
+        border: 1px solid var(--line);
+        color: var(--ink);
+        padding: 8px 10px;
+        border-radius: 8px;
+        width: 110px;
+      }
+      .cal-day .r {
+        align-items: flex-start;
+      }
+      .notif {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: 8px;
+      }
+      .notif button {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        color: var(--muted);
+        border-radius: 8px;
+        padding: 6px 10px;
+        cursor: pointer;
+        font-size: 0.8rem;
+      }
+      .notif button.on {
+        background: var(--accent);
+        color: #12241c;
+        border-color: var(--accent);
+      }
+      .mb li.mo-row {
+        cursor: pointer;
+      }
+      .mb li.mo-row:hover {
+        border-color: var(--accent);
+      }
     </style>
   </head>
   <body>
     <div class="app">
       <div class="hd">
-        <h1>Masterplan - Gutyerrez Filho</h1>
+        <div>
+          <h1>Masterplan - Gutyerrez Filho</h1>
+          <div class="cnt-bar" id="cntbar"></div>
+        </div>
         <div class="st">
           <div id="soc"></div>
           <button class="scb" id="scb">
             <b>Controle de Redes Sociais</b><span id="scn">0</span>
+          </button>
+          <button
+            class="scb"
+            id="cmb"
+            style="border-color: #4fb3e0; background: color-mix(in srgb, #4fb3e0 16%, var(--panel))"
+          >
+            <b style="color: #4fb3e0"><span id="cmn">0</span> Compromissos do Mês</b>
           </button>
         </div>
       </div>
@@ -808,8 +1062,8 @@
         ><button class="tab-btn" data-tab="tasks">Tarefas</button
         ><button class="tab-btn" data-tab="fixed">Tarefas Fixas</button
         ><button class="tab-btn" data-tab="report">Relatório Diário</button>
-         <button class="tab-btn" data-tab="daily">Notas</button>
-        <button class="tab-btn" data-tab="daily">Calendário</button>
+        <button class="tab-btn" data-tab="notes">Notas</button>
+        <button class="tab-btn" data-tab="calendar">Calendário</button>
       </nav>
       <div class="tab-panel active" id="tab-masterplan">
         <div class="sheet" style="margin-top: 16px">
@@ -840,9 +1094,6 @@
       <div class="tab-panel" id="tab-daily"><div class="lt" id="daily"></div></div>
       <div class="tab-panel" id="tab-tasks">
         <div id="boards"></div>
-        <button class="lt" style="cursor: pointer; color: var(--accent)" data-a="nb">
-          + Nova lista
-        </button>
       </div>
       <div class="tab-panel" id="tab-fixed"><div id="fixed"></div></div>
       <div class="tab-panel" id="tab-report">
@@ -852,6 +1103,8 @@
           <div class="f"><button data-a="cp">Copiar relatório</button></div>
         </div>
       </div>
+      <div class="tab-panel" id="tab-notes"><div id="notes"></div></div>
+      <div class="tab-panel" id="tab-calendar"><div id="cal"></div></div>
     </div>
     <div class="mo" id="mo">
       <div class="mb">
@@ -874,6 +1127,16 @@
           </button>
         </div>
         <ul id="sl"></ul>
+      </div>
+    </div>
+    <div class="mo" id="moc">
+      <div class="mb">
+        <div class="mh">
+          <h2>Compromissos do Mês</h2>
+          <button class="x" id="mcx" aria-label="Fechar">&times;</button>
+        </div>
+        <p>Todos os compromissos e eventos deste mês, guardados no Calendário.</p>
+        <ul id="mcl"></ul>
       </div>
     </div>
     <script>
@@ -951,7 +1214,7 @@
       (function () {
         const K = "masterplan-lite";
         let L = {
-          boards: [{ id: 1, name: "Principal", tasks: [] }],
+          boards: [{ id: 1, name: "Tarefas Pendentes", tasks: [] }],
           days: {},
           dt: {},
           cnt: {},
@@ -960,6 +1223,9 @@
         try {
           Object.assign(L, JSON.parse(localStorage.getItem(K) || "{}"));
         } catch (e) {}
+        L.boards.forEach((b) => {
+          if (b.name === "Principal") b.name = "Tarefas Pendentes";
+        });
         const sv = () => {
           try {
             localStorage.setItem(K, JSON.stringify(L));
@@ -1062,7 +1328,7 @@
             )
             .join("");
         function fix() {
-          if (!L.boards.length) L.boards.push({ id: id(), name: "Principal", tasks: [] });
+          if (!L.boards.length) L.boards.push({ id: id(), name: "Tarefas Pendentes", tasks: [] });
           if (!window.MPD) return;
           const P = DP();
           for (const k in L.dt) {
@@ -1317,20 +1583,22 @@
               .flat()
               .filter((t) => t.done).length,
             cn = Math.min(CAP, (L.cnt || {})[new Date().toLocaleDateString("sv-SE")] || 0);
-          let h =
-            '<h2 style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">Lista do dia - ' +
-            new Date().toLocaleDateString("pt-BR", { day: "numeric", month: "long" }) +
+          document.getElementById("cntbar").innerHTML =
             '<span class="pb"><i style="width:' +
             (cn / CAP) * 100 +
             '%"></i></span><button data-a="cm" title="Diminuir">−</button><input type="number" class="cn" min="0" max="' +
             CAP +
             '" value="' +
             cn +
-            '" data-a="cn"><small style="color:var(--muted);font-weight:400">/' +
+            '" data-a="cn"><small>/' +
             CAP +
-            '</small><button data-a="cq" title="Aumentar">+</button><small style="color:var(--muted);font-weight:400">' +
+            '</small><button data-a="cq" title="Aumentar">+</button><small>' +
             dn +
-            " concluídas</small></h2>";
+            " concluídas</small>";
+          let h =
+            "<h2>Lista do dia - " +
+            new Date().toLocaleDateString("pt-BR", { day: "numeric", month: "long" }) +
+            "</h2>";
           for (let i = 0; i < 24; i++) {
             const T = D[i] || [];
             h +=
@@ -1467,6 +1735,8 @@
                 '">Adicionar</button></div></div>',
             )
             .join("");
+          bh +=
+            '<button class="lt" style="cursor:pointer;color:var(--accent)" data-a="nb">+ Nova lista</button>';
           const P = DP();
           if (P.length)
             bh +=
@@ -2034,6 +2304,528 @@
             draw();
           }
         });
+        draw();
+      })();
+    </script>
+    <script>
+      (function () {
+        const K = "masterplan-notes";
+        let N = [];
+        try {
+          N = JSON.parse(localStorage.getItem(K) || "[]");
+        } catch (e) {}
+        const sv = () => {
+          try {
+            localStorage.setItem(K, JSON.stringify(N));
+          } catch (e) {}
+        };
+        const E = (s) =>
+          String(s).replace(
+            /[&<>"]/g,
+            (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+          );
+        const root = document.getElementById("notes");
+        function ask(m, cb) {
+          const o = document.createElement("div");
+          o.className = "mo open";
+          o.innerHTML =
+            '<div class="mb"><h2>' +
+            m +
+            '</h2><div class="mf" style="margin:16px 0 0"><button data-y="1">Sim</button><button class="x" data-y="0">Não</button></div></div>';
+          o.addEventListener("click", (e) => {
+            const y = e.target.dataset.y;
+            if (y === undefined && e.target !== o) return;
+            o.remove();
+            cb(y === "1");
+          });
+          document.body.appendChild(o);
+          o.querySelector("button").focus();
+        }
+        function draw() {
+          root.innerHTML =
+            N.map((n) => {
+              const nm = E(n.name || "");
+              return n.closed
+                ? '<div class="note-card" data-dk="note" data-i="' +
+                    n.id +
+                    '"><i class="dh" title="Arrastar">⠿</i><button data-a="nOpen" data-n="' +
+                    n.id +
+                    '" title="Abrir">▸</button><b class="nm">' +
+                    (nm || "Nota") +
+                    "</b><span>" +
+                    (E(n.text).trim() || "Nota vazia") +
+                    '</span><button data-a="nDel" data-n="' +
+                    n.id +
+                    '" title="Excluir">✕</button></div>'
+                : '<div class="note' +
+                    (n.small ? " small" : "") +
+                    '" data-dk="note" data-i="' +
+                    n.id +
+                    '"><div class="note-hd"><i class="dh" title="Arrastar">⠿</i><input type="text" class="nm" data-a="nName" data-n="' +
+                    n.id +
+                    '" value="' +
+                    nm +
+                    '" placeholder="Nome da nota"><button data-a="nSize" data-n="' +
+                    n.id +
+                    '" title="' +
+                    (n.small ? "Aumentar" : "Diminuir") +
+                    '">' +
+                    (n.small ? "▢" : "−") +
+                    '</button><button data-a="nClose" data-n="' +
+                    n.id +
+                    '" title="Fechar">✕</button></div><textarea data-a="nTxt" data-n="' +
+                    n.id +
+                    '" placeholder="Escreva sua nota...">' +
+                    E(n.text) +
+                    "</textarea></div>";
+            }).join("") +
+            '<button class="lt" style="cursor:pointer;color:var(--accent)" data-a="nAdd">+ Nova nota</button>';
+        }
+        root.addEventListener("click", (e) => {
+          const b = e.target.closest("[data-a]");
+          if (!b) return;
+          const a = b.dataset.a,
+            id = b.dataset.n;
+          if (a === "nAdd") {
+            const nn = {
+              id: Date.now() + Math.random(),
+              text: "",
+              name: "",
+              closed: false,
+              small: false,
+            };
+            N.unshift(nn);
+            sv();
+            draw();
+            const ta = root.querySelector('textarea[data-n="' + nn.id + '"]');
+            if (ta) ta.focus();
+            return;
+          }
+          const n = N.find((x) => x.id == id);
+          if (!n) return;
+          if (a === "nClose") n.closed = true;
+          else if (a === "nOpen") n.closed = false;
+          else if (a === "nSize") n.small = !n.small;
+          else if (a === "nDel") {
+            ask("Excluir esta nota?", (y) => {
+              if (y) {
+                N = N.filter((x) => x !== n);
+                sv();
+              }
+              draw();
+            });
+            return;
+          } else return;
+          sv();
+          draw();
+        });
+        root.addEventListener("input", (e) => {
+          const t = e.target,
+            f = t.dataset.a;
+          if (f !== "nTxt" && f !== "nName") return;
+          const n = N.find((x) => x.id == t.dataset.n);
+          if (!n) return;
+          if (f === "nTxt") n.text = t.value;
+          else n.name = t.value;
+          sv();
+        });
+        dnd(root, (c, t, it, af) => {
+          const k = N.find((x) => x.id == c.dataset.i);
+          N = N.filter((x) => x !== k);
+          const i = N.findIndex((x) => x.id == t.dataset.i);
+          N.splice(i + (af ? 1 : 0), 0, k);
+          sv();
+          draw();
+        });
+        draw();
+      })();
+    </script>
+    <script>
+      (function () {
+        const K = "masterplan-cal";
+        let C = { view: "month", cur: new Date().toLocaleDateString("sv-SE"), ev: {} };
+        try {
+          Object.assign(C, JSON.parse(localStorage.getItem(K) || "{}"));
+        } catch (e) {}
+        const sv = () => {
+          try {
+            localStorage.setItem(K, JSON.stringify(C));
+          } catch (e) {}
+          window.onCalChange && window.onCalChange();
+        };
+        const E = (s) =>
+          String(s).replace(
+            /[&<>"]/g,
+            (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+          );
+        const root = document.getElementById("cal");
+        window.CALNAV = (dISO) => {
+          C.view = "day";
+          C.cur = dISO;
+          document.querySelector('[data-tab="calendar"]').click();
+          draw();
+        };
+        const WD = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+        const MS = [
+          "Janeiro",
+          "Fevereiro",
+          "Março",
+          "Abril",
+          "Maio",
+          "Junho",
+          "Julho",
+          "Agosto",
+          "Setembro",
+          "Outubro",
+          "Novembro",
+          "Dezembro",
+        ];
+        const iso = (d) => d.toLocaleDateString("sv-SE");
+        const pd = (s) => {
+          const [y, m, d] = s.split("-").map(Number);
+          return new Date(y, m - 1, d);
+        };
+        const evs = (d) =>
+          (C.ev[iso(d)] || []).slice().sort((a, b) => ((a.time || "") < (b.time || "") ? -1 : 1));
+        function weekStart(d) {
+          const x = new Date(d);
+          x.setDate(x.getDate() - x.getDay());
+          return x;
+        }
+        function monthRows(base, weeks, max, dot) {
+          const y = base.getFullYear(),
+            m = base.getMonth(),
+            start = weekStart(new Date(y, m, 1)),
+            todayISO = iso(new Date());
+          let rows = "",
+            d = new Date(start);
+          for (let w = 0; w < weeks; w++) {
+            let cells = "";
+            for (let i = 0; i < 7; i++) {
+              const other = d.getMonth() !== m,
+                dISO = iso(d),
+                E_ = evs(d);
+              cells +=
+                '<td class="' +
+                (other ? "other " : "") +
+                (dISO === todayISO ? "today " : "") +
+                '" data-a="cday" data-d="' +
+                dISO +
+                '"><b>' +
+                d.getDate() +
+                "</b>" +
+                (dot
+                  ? E_.length
+                    ? '<span class="ev">•</span>'
+                    : ""
+                  : E_.slice(0, max)
+                      .map(
+                        (x) =>
+                          '<span class="ev">' +
+                          (x.time ? x.time + " " : "") +
+                          E(x.text) +
+                          "</span>",
+                      )
+                      .join("") +
+                    (E_.length > max
+                      ? '<span class="ev" style="background:transparent;color:var(--muted);padding:0">+' +
+                        (E_.length - max) +
+                        "</span>"
+                      : "")) +
+                "</td>";
+              d.setDate(d.getDate() + 1);
+            }
+            rows += "<tr>" + cells + "</tr>";
+          }
+          return rows;
+        }
+        function monthTable(base) {
+          const y = base.getFullYear(),
+            m = base.getMonth(),
+            first = new Date(y, m, 1),
+            days = new Date(y, m + 1, 0).getDate(),
+            weeks = Math.ceil((first.getDay() + days) / 7);
+          return (
+            '<table class="cal"><thead><tr>' +
+            WD.map((x) => "<th>" + x + "</th>").join("") +
+            "</tr></thead><tbody>" +
+            monthRows(base, weeks, 2, false) +
+            "</tbody></table>"
+          );
+        }
+        function weekTable(base) {
+          const start = weekStart(base),
+            todayISO = iso(new Date());
+          let cells = "",
+            heads = "",
+            d = new Date(start);
+          for (let i = 0; i < 7; i++) {
+            const dISO = iso(d),
+              E_ = evs(d);
+            heads += "<th>" + WD[i] + " " + d.getDate() + "</th>";
+            cells +=
+              '<td class="' +
+              (dISO === todayISO ? "today" : "") +
+              '" data-a="cday" data-d="' +
+              dISO +
+              '">' +
+              E_.map(
+                (x) => '<span class="ev">' + (x.time ? x.time + " " : "") + E(x.text) + "</span>",
+              ).join("") +
+              "</td>";
+            d.setDate(d.getDate() + 1);
+          }
+          return (
+            '<table class="cal week"><thead><tr>' +
+            heads +
+            "</tr></thead><tbody><tr>" +
+            cells +
+            "</tr></tbody></table>"
+          );
+        }
+        function yearTable(base) {
+          const y = base.getFullYear();
+          let h = '<div class="cal-year">';
+          for (let m = 0; m < 12; m++) {
+            const md = new Date(y, m, 1),
+              days = new Date(y, m + 1, 0).getDate(),
+              weeks = Math.ceil((md.getDay() + days) / 7);
+            h +=
+              '<div><h3 data-a="cmon" data-d="' +
+              iso(md) +
+              '">' +
+              MS[m] +
+              "</h3>" +
+              '<table class="cal mini"><thead><tr>' +
+              WD.map((x) => "<th>" + x[0] + "</th>").join("") +
+              "</tr></thead><tbody>" +
+              monthRows(md, weeks, 0, true) +
+              "</tbody></table></div>";
+          }
+          return h + "</div>";
+        }
+        function dayPanel(base) {
+          const dISO = iso(base),
+            E_ = evs(base),
+            label = base.toLocaleDateString("pt-BR", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            });
+          return (
+            '<div class="lt cal-day"><h2 style="text-transform:capitalize">' +
+            label +
+            "</h2>" +
+            (E_.length
+              ? E_.map(
+                  (x) =>
+                    '<div class="r"><input type="time" data-a="eTime" data-e="' +
+                    x.id +
+                    '" value="' +
+                    (x.time || "") +
+                    '"><input type="text" data-a="eTxt" data-e="' +
+                    x.id +
+                    '" value="' +
+                    E(x.text) +
+                    '"><button class="x" data-a="eDel" data-e="' +
+                    x.id +
+                    '">✕</button></div>',
+                ).join("")
+              : '<small class="gt">Nenhum compromisso neste dia.</small>') +
+            '<div class="f"><input type="time" id="cnh"><input type="text" id="cnt" placeholder="Agendar algo..."><button data-a="eAdd" data-d="' +
+            dISO +
+            '">Adicionar</button></div></div>'
+          );
+        }
+        function draw() {
+          const cur = pd(C.cur),
+            v = C.view;
+          const label =
+            v === "year"
+              ? cur.getFullYear()
+              : v === "month"
+                ? cur.toLocaleDateString("pt-BR", { month: "long", year: "numeric" })
+                : v === "week"
+                  ? "Semana de " + weekStart(cur).toLocaleDateString("pt-BR")
+                  : cur.toLocaleDateString("pt-BR", { day: "numeric", month: "long" });
+          let body =
+            v === "year"
+              ? yearTable(cur)
+              : v === "month"
+                ? monthTable(cur)
+                : v === "week"
+                  ? weekTable(cur)
+                  : dayPanel(cur);
+          root.innerHTML =
+            '<div class="cal-tabs">' +
+            ["year", "month", "week", "day"]
+              .map(
+                (x) =>
+                  '<button class="view' +
+                  (v === x ? " on" : "") +
+                  '" data-a="cv" data-v="' +
+                  x +
+                  '">' +
+                  { year: "Ano", month: "Mês", week: "Semana", day: "Dia" }[x] +
+                  "</button>",
+              )
+              .join("") +
+            '<div class="notif">' +
+            (typeof Notification === "undefined"
+              ? '<small class="gt">Notificações indisponíveis neste navegador</small>'
+              : Notification.permission === "granted"
+                ? '<button class="on" disabled>🔔 Notificações ativas</button>'
+                : Notification.permission === "denied"
+                  ? '<small class="gt">🔕 Notificações bloqueadas pelo navegador</small>'
+                  : '<button data-a="notifOn">🔔 Ativar notificações</button>') +
+            '</div><div class="cal-nav"><button data-a="cprev">‹</button><button data-a="ctoday">Hoje</button><b>' +
+            label +
+            '</b><button data-a="cnext">›</button></div></div>' +
+            body;
+        }
+        root.addEventListener("click", (e) => {
+          const b = e.target.closest("[data-a]");
+          if (!b) return;
+          const a = b.dataset.a,
+            cur = pd(C.cur);
+          if (a === "notifOn") {
+            if (typeof Notification !== "undefined") Notification.requestPermission(() => draw());
+            return;
+          }
+          if (a === "cv") C.view = b.dataset.v;
+          else if (a === "cday") {
+            C.view = "day";
+            C.cur = b.dataset.d;
+          } else if (a === "cmon") {
+            C.view = "month";
+            C.cur = b.dataset.d;
+          } else if (a === "ctoday") C.cur = new Date().toLocaleDateString("sv-SE");
+          else if (a === "cprev" || a === "cnext") {
+            const n = a === "cnext" ? 1 : -1,
+              d = new Date(cur);
+            if (C.view === "year") d.setFullYear(d.getFullYear() + n);
+            else if (C.view === "month") d.setMonth(d.getMonth() + n);
+            else if (C.view === "week") d.setDate(d.getDate() + n * 7);
+            else d.setDate(d.getDate() + n);
+            C.cur = iso(d);
+          } else if (a === "eAdd") {
+            const t = document.getElementById("cnt"),
+              h = document.getElementById("cnh"),
+              v = t.value.trim();
+            if (!v) return;
+            const k = b.dataset.d;
+            (C.ev[k] = C.ev[k] || []).push({
+              id: Date.now() + Math.random(),
+              time: h.value,
+              text: v,
+            });
+          } else if (a === "eDel") {
+            const k = iso(cur);
+            C.ev[k] = (C.ev[k] || []).filter((x) => x.id != b.dataset.e);
+          } else return;
+          sv();
+          draw();
+        });
+        root.addEventListener("input", (e) => {
+          const t = e.target,
+            f = t.dataset.a;
+          if (f !== "eTxt" && f !== "eTime") return;
+          const k = iso(pd(C.cur)),
+            x = (C.ev[k] || []).find((x) => x.id == t.dataset.e);
+          if (!x) return;
+          if (f === "eTxt") x.text = t.value;
+          else x.time = t.value;
+          sv();
+        });
+        draw();
+        function checkNotifs() {
+          if (typeof Notification === "undefined" || Notification.permission !== "granted") return;
+          const now = new Date(),
+            today = iso(now),
+            hm =
+              String(now.getHours()).padStart(2, "0") +
+              ":" +
+              String(now.getMinutes()).padStart(2, "0");
+          if (C.notifDay !== today) {
+            C.notifDay = today;
+            C.notified = [];
+          }
+          C.notified = C.notified || [];
+          (C.ev[today] || []).forEach((x) => {
+            if (x.time === hm && !C.notified.includes(x.id)) {
+              C.notified.push(x.id);
+              sv();
+              new Notification("Compromisso agora: " + x.time, { body: x.text });
+            }
+          });
+        }
+        setInterval(checkNotifs, 20000);
+      })();
+    </script>
+    <script>
+      (function () {
+        const E = (s) =>
+          String(s).replace(
+            /[&<>"]/g,
+            (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+          );
+        const $ = (id) => document.getElementById(id);
+        function monthEvents() {
+          let C = {};
+          try {
+            C = JSON.parse(localStorage.getItem("masterplan-cal") || "{}");
+          } catch (e) {}
+          const now = new Date(),
+            y = now.getFullYear(),
+            m = now.getMonth(),
+            out = [];
+          Object.keys(C.ev || {}).forEach((dISO) => {
+            const [dy, dm] = dISO.split("-").map(Number);
+            if (dy === y && dm - 1 === m)
+              (C.ev[dISO] || []).forEach((x) => out.push({ d: dISO, ...x }));
+          });
+          out.sort((a, b) => (a.d + (a.time || "")).localeCompare(b.d + (b.time || "")));
+          return out;
+        }
+        function draw() {
+          const ev = monthEvents();
+          $("cmn").textContent = ev.length;
+          $("mcl").innerHTML = ev.length
+            ? ev
+                .map((x) => {
+                  const [, mo, da] = x.d.split("-");
+                  return (
+                    '<li class="mo-row" data-d="' +
+                    x.d +
+                    '"><span>' +
+                    da +
+                    "/" +
+                    mo +
+                    (x.time ? " " + x.time : "") +
+                    " — " +
+                    E(x.text) +
+                    "</span></li>"
+                  );
+                })
+                .join("")
+            : "<li>Nenhum compromisso este mês.</li>";
+        }
+        $("cmb").onclick = () => {
+          draw();
+          $("moc").classList.add("open");
+        };
+        $("mcx").onclick = () => $("moc").classList.remove("open");
+        $("moc").onclick = (e) => {
+          if (e.target === $("moc")) $("moc").classList.remove("open");
+        };
+        $("mcl").addEventListener("click", (e) => {
+          const li = e.target.closest("[data-d]");
+          if (!li || !window.CALNAV) return;
+          $("moc").classList.remove("open");
+          window.CALNAV(li.dataset.d);
+        });
+        window.onCalChange = draw;
         draw();
       })();
     </script>
