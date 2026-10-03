@@ -1054,16 +1054,23 @@
           >
             <b style="color: #4fb3e0"><span id="cmn">0</span> Compromissos do Mês</b>
           </button>
+          <button
+            class="scb"
+            id="gmb"
+            style="border-color: #e8a33d; background: color-mix(in srgb, #e8a33d 16%, var(--panel))"
+          >
+            <b style="color: #e8a33d"><span id="gmn">0</span> Metas Mensais</b>
+          </button>
         </div>
       </div>
       <nav class="tabs">
-        <button class="tab-btn active" data-tab="masterplan">Masterplan</button>
-        <button class="tab-btn" data-tab="daily">Tarefas do dia</button
+        <button class="tab-btn active" data-tab="masterplan">Masterplan</button
+        ><button class="tab-btn" data-tab="calendar">Calendário</button
+        ><button class="tab-btn" data-tab="daily">Tarefas do dia</button
         ><button class="tab-btn" data-tab="tasks">Tarefas</button
         ><button class="tab-btn" data-tab="fixed">Tarefas Fixas</button
-        ><button class="tab-btn" data-tab="report">Relatório Diário</button>
-        <button class="tab-btn" data-tab="notes">Notas</button>
-        <button class="tab-btn" data-tab="calendar">Calendário</button>
+        ><button class="tab-btn" data-tab="report">Relatório Diário</button
+        ><button class="tab-btn" data-tab="notes">Notas</button>
       </nav>
       <div class="tab-panel active" id="tab-masterplan">
         <div class="sheet" style="margin-top: 16px">
@@ -1127,6 +1134,24 @@
           </button>
         </div>
         <ul id="sl"></ul>
+      </div>
+    </div>
+    <div class="mo" id="mog">
+      <div class="mb" style="max-width: 560px">
+        <div class="mh">
+          <h2 id="gmtitle">Metas Mensais</h2>
+          <button class="x" id="gmx" aria-label="Fechar">&times;</button>
+        </div>
+        <p>Pré-requisitos ou notas que você quer concluir até o fim do mês.</p>
+        <div class="mf" style="flex-wrap: wrap">
+          <select id="gmr" style="flex: 1; min-width: 200px"></select
+          ><button data-a="gAddR">Anexar pré-requisito</button>
+        </div>
+        <div class="mf" style="flex-wrap: wrap">
+          <select id="gmo" style="flex: 1; min-width: 200px"></select
+          ><button data-a="gAddN">Anexar nota</button>
+        </div>
+        <ul id="gml"></ul>
       </div>
     </div>
     <div class="mo" id="moc">
@@ -1660,6 +1685,10 @@
           }
           document.getElementById("daily").innerHTML = h;
           fix();
+          const RK = { u: 0, m: 1, b: 2, a: 3 },
+            srt = (a) => a.sort((x, y) => RK[pv(x)] - RK[pv(y)]);
+          L.boards.forEach((b) => srt(b.tasks));
+          for (const k in L.dt) srt(L.dt[k]);
           const DO = dopts(),
             HO = Array.from(
               { length: 24 },
@@ -1764,7 +1793,9 @@
                 );
               }).join("");
           document.getElementById("boards").innerHTML = bh;
-          document.getElementById("ntd").value = ND;
+          const ndSel = document.getElementById("ntd");
+          if (ND) ndSel.value = ND;
+          if (ndSel.selectedIndex < 0) ndSel.selectedIndex = 0;
           fxr(HO);
           const R = [];
           Object.values(D).forEach((a) => a.forEach((t) => t.done && R.push(t)));
@@ -2145,7 +2176,7 @@
               d.habs = d.habs.filter((x) => x !== h);
             else return;
           } else if (a === "addR")
-            h.reqs.push({ id: uid(), name: "Novo requisito", level: 1, points: 0 });
+            h.reqs.push({ id: uid(), name: "Novo requisito", level: 0, points: 0 });
           else if (a === "delR") {
             if (confirm("Excluir este requisito?")) h.reqs = h.reqs.filter((x) => x !== k);
             else return;
@@ -2325,6 +2356,7 @@
             (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
           );
         const root = document.getElementById("notes");
+        window.NOTED = () => N;
         function ask(m, cb) {
           const o = document.createElement("div");
           o.className = "mo open";
@@ -2826,6 +2858,177 @@
           window.CALNAV(li.dataset.d);
         });
         window.onCalChange = draw;
+        draw();
+      })();
+    </script>
+    <script>
+      (function () {
+        const K = "masterplan-goals";
+        const MAX = 365;
+        let G = {};
+        try {
+          G = JSON.parse(localStorage.getItem(K) || "{}");
+        } catch (e) {}
+        const sv = () => {
+          try {
+            localStorage.setItem(K, JSON.stringify(G));
+          } catch (e) {}
+        };
+        const E = (s) =>
+          String(s).replace(
+            /[&<>"]/g,
+            (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+          );
+        const $ = (id) => document.getElementById(id);
+        const DP = () => (window.MPD ? window.MPD() : []);
+        const ND = () => (window.NOTED ? window.NOTED() : []);
+        const mk = () => {
+          const d = new Date();
+          return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+        };
+        function findReq(id) {
+          for (const d of DP())
+            for (const h of d.habs) {
+              const k = h.reqs.find((x) => x.id === id);
+              if (k) return { d, h, k };
+            }
+          return null;
+        }
+        function arr() {
+          const k = mk();
+          G[k] = (G[k] || []).filter((g) =>
+            g.type === "req" ? !!findReq(g.ref) : ND().some((n) => n.id == g.ref),
+          );
+          return G[k];
+        }
+        function draw() {
+          const a = arr();
+          sv();
+          $("gmn").textContent = a.length;
+          $("gmtitle").textContent =
+            "Metas Mensais — " +
+            new Date().toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
+          const FP = DP()
+            .map(
+              (d) =>
+                '<optgroup label="' +
+                E(d.name) +
+                '">' +
+                d.habs
+                  .map((h) =>
+                    h.reqs
+                      .map(
+                        (k) =>
+                          '<option value="' +
+                          k.id +
+                          '">' +
+                          E(h.name) +
+                          " › " +
+                          E(k.name) +
+                          "</option>",
+                      )
+                      .join(""),
+                  )
+                  .join("") +
+                "</optgroup>",
+            )
+            .join("");
+          $("gmr").innerHTML = FP || "<option value=''>Nenhum pré-requisito criado</option>";
+          const notes = ND();
+          $("gmo").innerHTML = notes.length
+            ? notes
+                .map(
+                  (n) =>
+                    '<option value="' +
+                    n.id +
+                    '">' +
+                    E(n.name || n.text.slice(0, 30) || "Nota sem nome") +
+                    "</option>",
+                )
+                .join("")
+            : "<option value=''>Nenhuma nota criada</option>";
+          const rowDone = (g) => (g.done ? ";text-decoration:line-through;color:var(--muted)" : "");
+          $("gml").innerHTML = a.length
+            ? a
+                .map((g) => {
+                  if (g.type === "req") {
+                    const f = findReq(g.ref);
+                    if (!f) return "";
+                    const pct = Math.round((f.k.points / MAX) * 100);
+                    return (
+                      '<li style="border-left-color:' +
+                      f.d.color +
+                      '"><label style="display:flex;align-items:center;gap:8px;flex:1"><input type="checkbox" data-a="gDone" data-g="' +
+                      g.id +
+                      '"' +
+                      (g.done ? " checked" : "") +
+                      '><span style="flex:1' +
+                      rowDone(g) +
+                      '">' +
+                      E(f.d.name) +
+                      " \u203a " +
+                      E(f.h.name) +
+                      " \u203a " +
+                      E(f.k.name) +
+                      " <small>(Nv " +
+                      f.k.level +
+                      ", " +
+                      pct +
+                      '%)</small></span></label><button class="x" data-a="gDel" data-g="' +
+                      g.id +
+                      '">\u2715</button></li>'
+                    );
+                  }
+                  const n = notes.find((x) => x.id == g.ref);
+                  if (!n) return "";
+                  return (
+                    '<li><label style="display:flex;align-items:center;gap:8px;flex:1"><input type="checkbox" data-a="gDone" data-g="' +
+                    g.id +
+                    '"' +
+                    (g.done ? " checked" : "") +
+                    '><span style="flex:1' +
+                    rowDone(g) +
+                    '">\ud83d\udcdd ' +
+                    E(n.name || n.text.slice(0, 40) || "Nota sem nome") +
+                    '</span></label><button class="x" data-a="gDel" data-g="' +
+                    g.id +
+                    '">\u2715</button></li>'
+                  );
+                })
+                .join("")
+            : "<li>Nenhuma meta anexada este m\u00eas.</li>";
+        }
+        $("gmb").onclick = () => {
+          draw();
+          $("mog").classList.add("open");
+        };
+        $("gmx").onclick = () => $("mog").classList.remove("open");
+        $("mog").onclick = (e) => {
+          if (e.target === $("mog")) $("mog").classList.remove("open");
+        };
+        document.addEventListener("click", (e) => {
+          const b = e.target.closest("[data-a]");
+          if (!b || !$("mog").contains(b)) return;
+          const a = b.dataset.a;
+          const k = mk();
+          G[k] = G[k] || [];
+          if (a === "gAddR") {
+            const v = $("gmr").value;
+            if (v && !G[k].some((g) => g.type === "req" && g.ref == v))
+              G[k].push({ id: Date.now() + Math.random(), type: "req", ref: v, done: false });
+          } else if (a === "gAddN") {
+            const v = $("gmo").value;
+            if (v && !G[k].some((g) => g.type === "note" && g.ref == v))
+              G[k].push({ id: Date.now() + Math.random(), type: "note", ref: v, done: false });
+          } else if (a === "gDone") {
+            const g = G[k].find((x) => x.id == b.dataset.g);
+            if (g) g.done = b.checked;
+          } else if (a === "gDel") {
+            G[k] = G[k].filter((x) => x.id != b.dataset.g);
+          } else return;
+          sv();
+          draw();
+        });
         draw();
       })();
     </script>
