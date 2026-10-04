@@ -799,6 +799,31 @@
       .lt .r.fx {
         flex-wrap: wrap;
       }
+      #tab-masterplan .mprow {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--c);
+        border-radius: 8px;
+        padding: 10px 12px;
+        margin-bottom: 10px;
+      }
+      #tab-masterplan .mphead {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+        flex-wrap: wrap;
+      }
+      #tab-masterplan .mphead b {
+        flex: 1;
+        font-family: Cinzel, serif;
+      }
+      #tab-masterplan .mphead small {
+        color: var(--mute);
+      }
+      #tab-masterplan .mprow .lv {
+        background: transparent;
+      }
       .note {
         background: var(--panel);
         border: 1px solid var(--line);
@@ -1089,6 +1114,11 @@
         <section class="block">
           <h2><button class="h2b" id="togS" data-a="togS" aria-expanded="true"></button></h2>
           <div class="sumgrid" id="sum"></div>
+        </section>
+
+        <section class="block">
+          <h2>Progresso deste mês</h2>
+          <div id="monthprog"></div>
         </section>
 
         <section class="block">
@@ -1993,6 +2023,8 @@
             for (const h of d.habs) {
               const k = h.reqs.find((x) => x.id === rid);
               if (k) {
+                const bl = +k.level || 0,
+                  bp = +k.points || 0;
                 if (n < 0 && +k.points === 0 && +k.level > 0) {
                   k.level = +k.level - 1;
                   k.points = MAX - 1;
@@ -2000,6 +2032,7 @@
                   k.points = Math.max(0, +k.points + n);
                   norm(k);
                 }
+                bump(k, bl, bp);
                 save();
                 render();
                 return { req: k.name, hab: h.name };
@@ -2027,6 +2060,41 @@
 
         const hl = (h) => h.reqs.reduce((n, k) => n + (+k.level || 0), 0),
           dl = (d) => d.habs.reduce((n, h) => n + hl(h), 0);
+        const monthKey = () => {
+          const d = new Date();
+          return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+        };
+        const monthLabel = () => new Date().toLocaleDateString("pt-BR", { month: "long" });
+        function bump(k, bl, bp) {
+          const raw0 = bl * MAX + bp,
+            raw1 = (+k.level || 0) * MAX + (+k.points || 0),
+            diff = raw1 - raw0;
+          if (!diff) return;
+          k.m = k.m || {};
+          const mk = monthKey();
+          k.m[mk] = Math.max(0, (k.m[mk] || 0) + diff);
+        }
+        function monthProgressHTML() {
+          const mk = monthKey(),
+            rows = [];
+          S.depts.forEach((d) =>
+            d.habs.forEach((h) =>
+              h.reqs.forEach((k) => {
+                const g = (k.m && k.m[mk]) || 0;
+                if (g > 0) rows.push({ d, h, k, g });
+              }),
+            ),
+          );
+          if (!rows.length)
+            return '<p class="empty">Nenhum pré-requisito avançou este mês ainda.</p>';
+          rows.sort((a, b) => b.g - a.g);
+          return rows
+            .map(
+              ({ d, h, k, g }) =>
+                `<div class="mprow" style="--c:${d.color}"><div class="mphead"><span class="lv" style="border-color:${d.color};color:${d.color}">Nv ${k.level}</span><b>${esc(d.name)} › ${esc(h.name)} › ${esc(k.name)}</b><small>${k.points}/${MAX} no nível</small></div><div class="bar"><i style="width:${Math.min(100, (g / MAX) * 100)}%;background:${d.color}"></i></div><div class="pt">+${g} pontos em ${monthLabel()}</div></div>`,
+            )
+            .join("");
+        }
         function render() {
           const gs = S.depts.filter((d) => d.habs.some((h) => h.reqs.length));
           $("sum").innerHTML = gs.length
@@ -2044,6 +2112,7 @@
                 .join("")
             : '<p class="empty">Nenhum requisito ainda. Crie um departamento, uma habilidade e adicione o primeiro requisito.</p>';
           $("sum").hidden = !!S.sumClosed;
+          $("monthprog").innerHTML = monthProgressHTML();
           $("togS").textContent = (S.sumClosed ? "▸ " : "▾ ") + "Habilidades alcançadas";
           $("togS").setAttribute("aria-expanded", !S.sumClosed);
           $("depts").innerHTML =
@@ -2181,8 +2250,11 @@
             if (confirm("Excluir este requisito?")) h.reqs = h.reqs.filter((x) => x !== k);
             else return;
           } else if (a === "add") {
+            const bl = +k.level || 0,
+              bp = +k.points || 0;
             k.points = Math.max(0, k.points + +b.dataset.n);
             norm(k);
+            bump(k, bl, bp);
           }
           save();
           render();
